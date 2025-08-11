@@ -135,7 +135,7 @@ const Portfolio = () => {
   ];
 
   const achievements = [
-    { title: "LeetCode 50-Day Streak Badge", icon: "🏆", description: "Consistent problem solving" },
+    { title: "LeetCode 100-Day Streak Badge", icon: "🏆", description: "Consistent problem solving" },
     { title: "500+ Problems Solved", icon: "🎯", description: "Across multiple platforms" },
     { title: "CGPA: 8.72", icon: "🎓", description: "B.Tech CSE (Data Science)" },
     { title: "AI Project Builder", icon: "🤖", description: "Building next-gen solutions" }
