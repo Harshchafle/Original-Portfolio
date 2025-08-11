@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harsh Chafle - Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #60a5fa, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .typing-animation {
+            border-right: 2px solid #60a5fa;
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 50% { border-color: transparent; }
+            51%, 100% { border-color: #60a5fa; }
+        }
+        
+        .skill-bar {
+            transition: width 1s ease-out;
+        }
+        
+        .project-card:hover {
+            transform: scale(1.05);
+            transition: all 0.3s ease;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, var(--from-color), var(--to-color));
+        }
+        
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #1f2937;
+        }
+        
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #4b5563;
+            border-radius: 4px;
+        }
+        
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #6b7280;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white custom-scrollbar">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-gray-900/95 backdrop-blur-sm z-50 border-b border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="text-2xl font-bold gradient-text">
+                    Harsh Chafle
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#about" class="hover:text-blue-400 transition-colors">About</a>
+                    <a href="#skills" class="hover:text-blue-400 transition-colors">Skills</a>
+                    <a href="#projects" class="hover:text-blue-400 transition-colors">Projects</a>
+                    <a href="#stats" class="hover:text-blue-400 transition-colors">Stats</a>
+                    <a href="#contact" class="hover:text-blue-400 transition-colors">Contact</a>
+                </div>
+                <div class="flex space-x-4">
+                    <i data-lucide="github" class="w-5 h-5 hover:text-blue-400 cursor-pointer"></i>
+                    <i data-lucide="linkedin" class="w-5 h-5 hover:text-blue-400 cursor-pointer"></i>
+                    <i data-lucide="mail" class="w-5 h-5 hover:text-blue-400 cursor-pointer"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="pt-20 pb-20 px-4">
+        <div class="max-w-7xl mx-auto text-center">
+            <div class="mb-8">
+                <h1 class="text-5xl md:text-7xl font-bold mb-6">
+                    Hi, I'm <span class="gradient-text">Harsh</span>
+                </h1>
+                <div class="text-2xl md:text-3xl text-gray-300 h-12 flex items-center justify-center">
+                    <span class="mr-2">I'm a</span>
+                    <span class="text-blue-400 font-mono typing-animation pr-1" id="typed-text">
+                        Competitive Programmer
+                    </span>
+                </div>
+            </div>
+            
+            <p class="text-xl text-gray-400 mb-8 max-w-3xl mx-auto">
+                Passionate about solving complex problems through code, building AI-powered solutions, 
+                and competing in algorithmic challenges. Currently working on next-gen AI tools.
+            </p>
+
+            <div class="flex flex-wrap justify-center gap-4 mb-12">
+                <button class="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-lg font-medium transition-colors flex items-center">
+                    <i data-lucide="mail" class="w-4 h-4 mr-2"></i>
+                    Contact Me
+                </button>
+                <button class="border border-gray-600 hover:border-blue-400 px-6 py-3 rounded-lg font-medium transition-colors flex items-center">
+                    <i data-lucide="github" class="w-4 h-4 mr-2"></i>
+                    View GitHub
+                </button>
+            </div>
+
+            <!-- Quick Stats -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-2xl mx-auto">
+                <div class="stat-card bg-gradient-to-br from-green-600 to-green-700 p-6 rounded-xl text-white">
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="text-2xl">🎯</div>
+                        <div class="text-right">
+                            <div class="text-2xl font-bold">200+</div>
+                            <div class="text-sm opacity-80">LeetCode</div>
+                        </div>
+                    </div>
+                    <div class="text-sm opacity-90">Problems Solved</div>
+                </div>
+                
+                <div class="stat-card bg-gradient-to-br from-orange-600 to-orange-700 p-6 rounded-xl text-white">
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="text-2xl">🔥</div>
+                        <div class="text-right">
+                            <div class="text-2xl font-bold">31</div>
+                            <div class="text-sm opacity-80">Days</div>
+                        </div>
+                    </div>
+                    <div class="text-sm opacity-90">Current Streak</div>
+                </div>
+                
+                <div class="stat-card bg-gradient-to-br from-yellow-600 to-yellow-700 p-6 rounded-xl text-white">
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="text-2xl">⭐</div>
+                        <div class="text-right">
+                            <div class="text-2xl font-bold">250+</div>
+                            <div class="text-sm opacity-80">Earned</div>
+                        </div>
+                    </div>
+                    <div class="text-sm opacity-90">GitHub Stars</div>
+                </div>
+                
+                <div class="stat-card bg-gradient-to-br from-purple-600 to-purple-700 p-6 rounded-xl text-white">
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="text-2xl">🤖</div>
+                        <div class="text-right">
+                            <div class="text-2xl font-bold">3+</div>
+                            <div class="text-sm opacity-80">Built</div>
+                        </div>
+                    </div>
+                    <div class="text-sm opacity-90">AI Projects</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 px-4 bg-gray-800/50">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12">About Me</h2>
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <div class="text-lg text-gray-300 space-y-6">
+                        <p>
+                            I'm a passionate B.Tech student in Computer Science (Data Science) with a CGPA of 8.72, 
+                            specializing in competitive programming.
+                        </p>
+                        <p>
+                            Born on February 21, 2004, I've been on an exciting journey of solving complex algorithmic 
+                            problems and building innovative applications that leverage artificial intelligence.
+                        </p>
+                        <p>
+                            Currently working on an <span class="text-blue-400 font-semibold">AI-Powered SEO Content Optimizer</span> 
+                            using FastAPI, demonstrating my commitment to merging AI with practical business solutions.
+                        </p>
+                    </div>
+                    
+                    <div class="mt-8 grid grid-cols-2 gap-6">
+                        <div class="bg-gray-700/50 p-4 rounded-lg">
+                            <div class="text-2xl mb-2">🏆</div>
+                            <div class="font-semibold text-white">LeetCode 50-Day Streak Badge</div>
+                            <div class="text-sm text-gray-400">Consistent problem solving</div>
+                        </div>
+                        <div class="bg-gray-700/50 p-4 rounded-lg">
+                            <div class="text-2xl mb-2">🎯</div>
+                            <div class="font-semibold text-white">500+ Problems Solved</div>
+                            <div class="text-sm text-gray-400">Across multiple platforms</div>
+                        </div>
+                        <div class="bg-gray-700/50 p-4 rounded-lg">
+                            <div class="text-2xl mb-2">🎓</div>
+                            <div class="font-semibold text-white">CGPA: 8.72</div>
+                            <div class="text-sm text-gray-400">B.Tech CSE (Data Science)</div>
+                        </div>
+                        <div class="bg-gray-700/50 p-4 rounded-lg">
+                            <div class="text-2xl mb-2">🤖</div>
+                            <div class="font-semibold text-white">AI Project Builder</div>
+                            <div class="text-sm text-gray-400">Building next-gen solutions</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-gradient-to-br from-blue-600/20 to-purple-600/20 p-8 rounded-2xl border border-blue-500/30">
+                    <h3 class="text-2xl font-bold mb-6 text-center">Current Focus</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-3">
+                            <i data-lucide="brain" class="w-6 h-6 text-blue-400"></i>
+                            <span>Building AI-Powered Applications</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <i data-lucide="code" class="w-6 h-6 text-green-400"></i>
+                            <span>Mastering Advanced Algorithms</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <i data-lucide="trophy" class="w-6 h-6 text-yellow-400"></i>
+                            <span>Competitive programming Excellence</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <i data-lucide="target" class="w-6 h-6 text-purple-400"></i>
+                            <span>Basic Web Development Mastery</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 px-4">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12">Technical Skills</h2>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-gray-800 p-8 rounded-xl border border-gray-700">
+                    <div class="flex items-center mb-6">
+                        <i data-lucide="code" class="w-8 h-8 text-blue-400 mr-3"></i>
+                        <h3 class="text-2xl font-bold">Programming</h3>
+                    </div>
+                    <div class="mb-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-white font-medium">Java</span>
+                            <span class="text-gray-400">90%</span>
+                        </div>
+                        <div class="w-full bg-gray-700 rounded-full h-2">
+                            <div class="bg-orange-500 h-2 rounded-full skill-bar" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-white font-medium">Python</span>
+                            <span class="text-gray-400">85%</span>
+                        </div>
+                        <div class="w-full bg-gray-700 rounded-full h-2">
+                            <div class="bg-blue-500 h-2 rounded-full skill-bar" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-white font-medium">JavaScript</span>
+                            <span class="text-gray-400">80%</span>
+                        </div>
+                        <div class="w-full bg-gray-700 rounded-full h-2">
+                            <div class="bg-yellow-500 h-2 rounded-full skill-bar" style="width: 80%"></div>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-white font-medium">C</span>
+                            <span class="text-gray-400">75%</span>
+                        </div>
+                        <div class="w-full bg-gray-700 rounded-full h-2">
+                            <div class="bg-gray-500 h-2 rounded-full skill-bar" style="width: 75%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 p-8 rounded-xl border border-gray-700">
+                    <div class="flex items-center mb-6">
+                        <i data-lucide="brain" class="w-8 h-8 text-purple-400 mr-3"></i>
+                        <h3 class="text-2xl font-bold">AI & Data Science</h3>
+                    </div>
+                    <div class="mb-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-white font-medium">FastAPI</span>
+                            <span class="text-gray-400">85%</span>
+                        </div>
+                        <div class="w-full bg-gray-700 rounded-full h-2">
+                            <div class="bg-green-500 h-2 rounded-full skill-bar" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-white font-medium">TensorFlow</span>
+                            <span class="text-gray-400">70%</span>
+                        </div>
+                        <div class="w-full bg-gray-700 rounded-full h-2">
+                            <div class="bg-orange-600 h-2 rounded-full skill-bar" style="width: 70%"></div>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-white font-medium">Pandas</span>
+                            <span class="text-gray-400">85%</span>
+                        </div>
+                        <div class="w-full bg-gray-700 rounded-full h-2">
+                            <div class="bg-purple-500 h-2 rounded-full skill-bar" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-white font-medium">NumPy</span>
+                            <span class="text-gray-400">80%</span>
+                        </div>
+                        <div class="w-full bg-gray-700 rounded-full h-2">
+                            <div class="bg-blue-600 h-2 rounded-full skill-bar" style="width: 80%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 p-8 rounded-xl border border-gray-700">
+                    <div class="flex items-center mb-6">
+                        <i data-lucide="globe" class="w-8 h-8 text-green-400 mr-3"></i>
+                        <h3 class="text-2xl font-bold">Web Development</h3>
+                    </div>
+                    <div class="mb-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-white font-medium">React.js</span>
+                            <span class="text-gray-400">85%</span>
+                        </div>
+                        <div class="w-full bg-gray-700 rounded-full h-2">
+                            <div class="bg-cyan-500 h-2 rounded-full skill-bar" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-white font-medium">Node.js</span>
+                            <span class="text-gray-400">80%</span>
+                        </div>
+                        <div class="w-full bg-gray-700 rounded-full h-2">
+                            <div class="bg-green-600 h-2 rounded-full skill-bar" style="width: 80%"></div>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-white font-medium">MongoDB</span>
+                            <span class="text-gray-400">75%</span>
+                        </div>
+                        <div class="w-full bg-gray-700 rounded-full h-2">
+                            <div class="bg-green-500 h-2 rounded-full skill-bar" style="width: 75%"></div>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-white font-medium">MySQL</span>
+                            <span class="text-gray-400">80%</span>
+                        </div>
+                        <div class="w-full bg-gray-700 rounded-full h-2">
+                            <div class="bg-blue-500 h-2 rounded-full skill-bar" style="width: 80%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 px-4 bg-gray-800/50">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12">Featured Projects</h2>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="project-card bg-gray-800 rounded-xl p-6 border border-gray-700 hover:border-blue-500 transition-all duration-300">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center space-x-3">
+                            <div class="text-blue-400">
+                                <i data-lucide="brain" class="w-6 h-6"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-white">AI-Powered SEO Content Optimizer</h3>
+                        </div>
+                        <span class="px-3 py-1 rounded-full text-xs font-medium bg-yellow-500/20 text-yellow-400">
+                            In Progress
+                        </span>
+                    </div>
+                    <p class="text-gray-300 mb-4">Advanced AI tool using FastAPI and Python to optimize content for search engines with real-time analysis and suggestions.</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-2 py-1 bg-gray-700 text-blue-400 text-xs rounded-md">Python</span>
+                        <span class="px-2 py-1 bg-gray-700 text-blue-400 text-xs rounded-md">FastAPI</span>
+                        <span class="px-2 py-1 bg-gray-700 text-blue-400 text-xs rounded-md">AI/ML</span>
+                        <span class="px-2 py-1 bg-gray-700 text-blue-400 text-xs rounded-md">NLP</span>
+                        <span class="px-2 py-1 bg-gray-700 text-blue-400 text-xs rounded-md">SEO</span>
+                    </div>
+                    <div class="flex items-center text-blue-400 hover:text-blue-300 cursor-pointer">
+                        <span class="mr-2">View Project</span>
+                        <i data-lucide="external-link" class="w-4 h-4"></i>
+                    </div>
+                </div>
+
+                <div class="project-card bg-gray-800 rounded-xl p-6 border border-gray-700 hover:border-blue-500 transition-all duration-300">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center space-x-3">
+                            <div class="text-blue-400">
+                                <i data-lucide="code" class="w-6 h-6"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-white">LeetCode Solutions Repository</h3>
+                        </div>
+                        <span class="px-3 py-1 rounded-full text-xs font-medium bg-green-500/20 text-green-400">
+                            Active
+                        </span>
+                    </div>
+                    <p class="text-gray-300 mb-4">Comprehensive collection of 200+ optimized solutions with detailed complexity analysis and multiple approaches.</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-2 py-1 bg-gray-700 text-blue-400 text-xs rounded-md">Java</span>
+                        <span class="px-2 py-1 bg-gray-700 text-blue-400 text-xs rounded-md">Python</span>
+                        <span class="px-2 py-1 bg-gray-700 text-blue-400 text-xs rounded-md">DSA</span>
+                        <span class="px-2 py-1 bg-gray-700 text-blue-400 text-xs rounded-md">Algorithms</span>
+                    </div>
+                    <div class="flex items-center text-blue-400 hover:text-blue-300 cursor-pointer">
+                        <span class="mr-2">View Project</span>
+                        <i data-lucide="external-link" class="w-4 h-4"></i>
+                    </div>
+                </div>
+
+                <div class="project-card bg-gray-800 rounded-xl p-6 border border-gray-700 hover:border-blue-500 transition-all duration-300">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center space-x-3">
+                            <div class="text-blue-400">
+                                <i data-lucide="globe" class="w-6 h-6"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-white">Full-Stack E-Commerce Platform</h3>
+                        </div>
+                        <span class="px-3 py-1 rounded-full text-xs font-medium bg-blue-500/20 text-blue-400">
+                            Completed
+                        </span>
+                    </div>
+                    <p class="text-gray-300 mb-4">Modern MERN stack e-commerce application with real-time inventory and payment integration.</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-2 py-1 bg-gray-700 text-blue-400 text-xs rounded-md">React</span>
+                        <span class="px-2 py-1 bg-gray-700 text-blue-400 text-xs rounded-md">Node.js</span>
+                        <span class="px-2 py-1 bg-gray-700 text-blue-400 text-xs rounded-md">MongoDB</span>
+                        <span class="px-2 py-1 bg-gray-700 text-blue-400 text-xs rounded-md">Express</span>
+                    </div>
+                    <div class="flex items-center text-blue-400 hover:text-blue-300 cursor-pointer">
+                        <span class="mr-2">View Project</span>
+                        <i data-lucide="external-link" class="w-4 h-4"></i>
+                    </div>
+                </div>
+
+                <div class="project-card bg-gray-800 rounded-xl p-6 border border-gray-700 hover:border-blue-500 transition-all duration-300">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center space-x-3">
+                            <div class="text-blue-400">
+                                <i data-lucide="database" class="w-6 h-6"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-white">Netflix Data Analytics</h3>
+                        </div>
+                        <span class="px-3 py-1 rounded-full text-xs font-medium bg-blue-500/20 text-blue-400">
+                            Completed
+                        </span>
+                    </div>
+                    <p class="text-gray-300 mb-4">The primary goal of this project is to perform an Exploratory Data Analysis (EDA) on a dataset of Netflix movies.</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-2 py-1 bg-gray-700 text-blue-400 text-xs rounded-md">Python</span>
+                        <span class="px-2 py-1 bg-gray-700 text-blue-400 text-xs rounded-md">Pandas</span>
+                        <span class="px-2 py-1 bg-gray-700 text-blue-400 text-xs rounded-md">Matplotlib</span>
+                        <span class="px-2 py-1 bg-gray-700 text-blue-400 text-xs rounded-md">Seaborn</span>
+                    </div>
+                    <div class="flex items-center text-blue-400 hover:text-blue-300 cursor-pointer">
+                        <span class="mr-2">View Project</span>
+                        <i data-lucide="external-link" class="w-4 h-4"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-12">
+                <button class="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 px-8 py-3 rounded-lg font-medium transition-all duration-300 transform hover:scale-105">
+                    View All Projects on GitHub
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section id="stats" class="py-20 px-4">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12">Live Statistics</h2>
+            
+            <div class="grid md:grid-cols-2 gap-12">
+                <!-- LeetCode Stats -->
+                <div class="bg-gradient-to-br from-yellow-600/20 to-orange-600/20 p-8 rounded-2xl border border-yellow-500/30">
+                    <h3 class="text-2xl font-bold mb-6 flex items-center">
+                        <i data-lucide="code" class="w-8 h-8 text-yellow-400 mr-3"></i>
+                        LeetCode Performance
+                    </h3>
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-yellow-400">200</div>
+                            <div class="text-gray-400">Problems Solved</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-orange-400">31</div>
+                            <div class="text-gray-400">Day Streak</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-red-400">497,685</div>
+                            <div class="text-gray-400">Global Rank</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-green-400">1250</div>
+                            <div class="text-gray-400">Contest Rating</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- GitHub Stats -->
+                <div class="bg-gradient-to-br from-gray-600/20 to-gray-800/20 p-8 rounded-2xl border border-gray-500/30">
+                    <h3 class="text-2xl font-bold mb-6 flex items-center">
+                        <i data-lucide="github" class="w-8 h-8 text-gray-400 mr-3"></i>
+                        GitHub Activity
+                    </h3>
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-blue-400">45</div>
+                            <div class="text-gray-400">Repositories</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-yellow-400">250</div>
+                            <div class="text-gray-400">Stars Earned</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-green-400">500</div>
+                            <div class="text-gray-400">Commits</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-purple-400">15</div>
+                            <div class="text-gray-400">Pull Requests</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 px-4 bg-gray-800/50">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-4xl font-bold mb-8">Let's Build Something Amazing Together</h2>
+            <p class="text-xl text-gray-400 mb-12">
+                I'm always excited to work on innovative projects, especially those involving AI, 
+                competitive programming, or full-stack development.
+            </p>
+            
+            <div class="grid md:grid-cols-3 gap-8 mb-12">
+                <a href="mailto:chafleharsh@gmail.com" class="bg-red-600/20 border border-red-500/30 p-6 rounded-xl hover:bg-red-600/30 transition-colors">
+                    <i data-lucide="mail" class="w-8 h-8 text-red-400 mx-auto mb-4"></i>
+                    <div class="font-semibold">Email</div>
+                    <div class="text-gray-400">chafleharsh@gmail.com</div>
+                </a>
+                
+                <a href="https://www.linkedin.com/in/harsh-chafle-641809292/" class="bg-blue-600/20 border border-blue-500/30 p-6 rounded-xl hover:bg-blue-600/30 transition-colors">
+                    <i data-lucide="linkedin" class="w-8 h-8 text-blue-400 mx-auto mb-4"></i>
+                    <div class="font-semibold">LinkedIn</div>
+                    <div class="text-gray-400">Connect with me</div>
+                </a>
+                
+                <a href="https://github.com/Harshchafle" class="bg-gray-600/20 border border-gray-500/30 p-6 rounded-xl hover:bg-gray-600/30 transition-colors">
+                    <i data-lucide="github" class="w-8 h-8 text-gray-400 mx-auto mb-4"></i>
+                    <div class="font-semibold">GitHub</div>
+                    <div class="text-gray-400">View my code</div>
+                </a>
+            </div>
+
+            <div class="text-center">
+                <p class="text-gray-400 mb-4">📍 Based in India | 📱 +91 79722 34194</p>
+                <div class="text-blue-400 italic">
+                    "The best way to predict the future is to create it." - Peter Drucker
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 py-8 px-4 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto text-center">
+            <p class="text-gray-400">
+                © 2024 Harsh Chafle. Built with React.js and lots of ☕. 
+                <span class="text-blue-400 ml-2">Always learning, always coding!</span>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Typing animation
+        const roles = [
+            "Competitive Programmer",
+            "Software Developer", 
+            "Data Analyst",
+            "AI Enthusiast",
+            "Agentic AI Learner",
+            "Problem Solver"
+        ];
+
+        let currentRole = 0;
+        let currentIndex = 0;
+        let isDeleting = false;
+
+        function typeText() {
+            const typedTextElement = document.getElementById('typed-text');
+            const currentRoleText = roles[currentRole];
+
+            if (isDeleting) {
+                typedTextElement.textContent = currentRoleText.substring(0, currentIndex - 1);
+                currentIndex--;
+            } else {
+                typedTextElement.textContent = currentRoleText.substring(0, currentIndex + 1);
+                currentIndex++;
+            }
+
+            if (!isDeleting && currentIndex === currentRoleText.length) {
+                setTimeout(() => {
+                    isDeleting = true;
+                }, 2000);
+            } else if (isDeleting && currentIndex === 0) {
+                isDeleting = false;
+                currentRole = (currentRole + 1) % roles.length;
+            }
+
+            setTimeout(typeText, isDeleting ? 50 : 100);
+        }
+
+        // Start typing animation
+        setTimeout(typeText, 1000);
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add scroll effect to navigation
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.classList.add('bg-gray-900/95');
+            } else {
+                nav.classList.remove('bg-gray-900/95');
+            }
+        });
+    </script>
+</body>
+</html>
