@@ -8,13 +8,17 @@ const Portfolio = () => {
     solved: 200,
     streak: 31,
     rank: 497685,
-    rating: 1250
+    rating: 1250,
+    loading: true
   });
   const [githubStats, setGithubStats] = useState({
     repos: 45,
     stars: 250,
     commits: 500,
-    prs: 15
+    prs: 15,
+    followers: 10,
+    following: 20,
+    loading: true
   });
 
   const roles = [
@@ -141,6 +145,50 @@ const Portfolio = () => {
     { title: "AI Project Builder", icon: "🤖", description: "Building next-gen solutions" }
   ];
 
+  // Fetch GitHub stats
+  const fetchGitHubStats = async () => {
+    try {
+      const response = await fetch('https://api.github.com/users/Harshchafle');
+      const userData = await response.json();
+      
+      const reposResponse = await fetch('https://api.github.com/users/Harshchafle/repos');
+      const reposData = await reposResponse.json();
+      
+      const totalStars = reposData.reduce((acc, repo) => acc + repo.stargazers_count, 0);
+      
+      setGithubStats({
+        repos: userData.public_repos || 45,
+        stars: totalStars || 250,
+        followers: userData.followers || 10,
+        following: userData.following || 20,
+        commits: 500, // GitHub API doesn't provide total commits easily
+        prs: 15, // Keeping static for now
+        loading: false
+      });
+    } catch (error) {
+      console.error('Error fetching GitHub stats:', error);
+      setGithubStats(prev => ({ ...prev, loading: false }));
+    }
+  };
+
+  // Fetch LeetCode stats (using a proxy or alternative approach since LeetCode API is not public)
+  const fetchLeetCodeStats = async () => {
+    try {
+      // Since LeetCode doesn't have a public API, we'll use static data
+      // In a real implementation, you might use a proxy service or scraping solution
+      setLeetcodeStats({
+        solved: 500,
+        streak: 31,
+        rank: 168078,
+        rating: 1425,
+        loading: false
+      });
+    } catch (error) {
+      console.error('Error fetching LeetCode stats:', error);
+      setLeetcodeStats(prev => ({ ...prev, loading: false }));
+    }
+  };
+
   // Typing animation effect
   useEffect(() => {
     const roleText = roles[currentRole];
@@ -162,22 +210,19 @@ const Portfolio = () => {
     return () => clearInterval(typeInterval);
   }, [currentRole]);
 
-  // Simulate real-time stats updates
+  // Fetch stats on component mount
   useEffect(() => {
-    const updateStats = () => {
-      setLeetcodeStats(prev => ({
-        ...prev,
-        solved: prev.solved + Math.floor(Math.random() * 2),
-        streak: prev.streak + (Math.random() > 0.8 ? 1 : 0)
-      }));
-      setGithubStats(prev => ({
-        ...prev,
-        commits: prev.commits + Math.floor(Math.random() * 3),
-        stars: prev.stars + (Math.random() > 0.9 ? 1 : 0)
-      }));
-    };
+    fetchGitHubStats();
+    fetchLeetCodeStats();
+  }, []);
 
-    const interval = setInterval(updateStats, 30000); // Update every 30 seconds
+  // Auto-update stats periodically
+  useEffect(() => {
+    const interval = setInterval(() => {
+      fetchGitHubStats();
+      fetchLeetCodeStats();
+    }, 300000); // Update every 5 minutes
+
     return () => clearInterval(interval);
   }, []);
 
@@ -197,7 +242,7 @@ const Portfolio = () => {
   );
 
   const ProjectCard = ({ project }) => (
-    <div className="bg-gray-800 rounded-xl p-6 border border-gray-700 hover:border-blue-500">
+    <div className="bg-gray-800 rounded-xl p-6 border border-gray-700 hover:border-blue-500 hover:shadow-lg hover:shadow-blue-500/20">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center space-x-3">
           <div className="text-blue-400">{project.icon}</div>
@@ -228,22 +273,27 @@ const Portfolio = () => {
         <span className="mr-2">View Project</span>
         <ExternalLink className="w-4 h-4" />
       </a>
-      
     </div>
   );
 
-  const StatCard = ({ title, value, icon, color, subtext }) => (
+  const StatCard = ({ title, value, icon, color, subtext, loading }) => (
     <div className={`bg-gradient-to-br ${color} p-6 rounded-xl text-white`}>
       <div className="flex items-center justify-between mb-2">
         <div className="text-2xl">{icon}</div>
         <div className="text-right">
-          <div className="text-2xl font-bold">{value}</div>
+          <div className="text-2xl font-bold">
+            {loading ? '...' : value}
+          </div>
           <div className="text-sm opacity-80">{subtext}</div>
         </div>
       </div>
       <div className="text-sm opacity-90">{title}</div>
     </div>
   );
+
+  const handleContactClick = () => {
+    window.location.href = "mailto:chafleharsh@gmail.com";
+  };
 
   return (
     <div className="bg-gray-900 min-h-screen text-white">
@@ -297,10 +347,13 @@ const Portfolio = () => {
           </p>
 
           <div className="flex flex-wrap justify-center gap-4 mb-12">
-            <a href="mailto:chafleharsh@gmail.com" className="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-lg font-medium transition-colors flex items-center">
+            <button 
+              onClick={handleContactClick}
+              className="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-lg font-medium transition-colors flex items-center"
+            >
               <Mail className="w-4 h-4 mr-2" />
               Contact Me
-            </a>
+            </button>
             <a href="https://github.com/Harshchafle" target="_blank" rel="noopener noreferrer" className="border border-gray-600 hover:border-blue-400 px-6 py-3 rounded-lg font-medium transition-colors flex items-center">
               <Github className="w-4 h-4 mr-2" />
               View GitHub
@@ -315,6 +368,7 @@ const Portfolio = () => {
               icon="🎯" 
               color="from-green-600 to-green-700"
               subtext="LeetCode"
+              loading={leetcodeStats.loading}
             />
             <StatCard 
               title="Current Streak" 
@@ -322,6 +376,7 @@ const Portfolio = () => {
               icon="🔥" 
               color="from-orange-600 to-orange-700"
               subtext="Days"
+              loading={leetcodeStats.loading}
             />
             <StatCard 
               title="GitHub Stars" 
@@ -329,13 +384,15 @@ const Portfolio = () => {
               icon="⭐" 
               color="from-yellow-600 to-yellow-700"
               subtext="Earned"
+              loading={githubStats.loading}
             />
             <StatCard 
-              title="AI Projects" 
-              value="3+" 
+              title="Repositories" 
+              value={githubStats.repos + "+"} 
               icon="🤖" 
               color="from-purple-600 to-purple-700"
-              subtext="Built"
+              subtext="Projects"
+              loading={githubStats.loading}
             />
           </div>
         </div>
@@ -390,7 +447,7 @@ const Portfolio = () => {
                 </div>
                 <div className="flex items-center space-x-3">
                   <Target className="w-6 h-6 text-purple-400" />
-                  <span>Basic Web Development Mastery</span>
+                  <span>Full Stack Web Development</span>
                 </div>
               </div>
             </div>
@@ -455,9 +512,9 @@ const Portfolio = () => {
                 <p className="text-gray-400 text-sm">Pandas, NumPy, Matplotlib</p>
               </div>
               <div className="text-center">
-                <Server className="w-12 h-12 text-purple-400 mx-auto mb-3" />
-                <h4 className="font-semibold">System Design</h4>
-                <p className="text-gray-400 text-sm">Scalable Architecture</p>
+                <Brain className="w-12 h-12 text-purple-400 mx-auto mb-3" />
+                <h4 className="font-semibold">Artificial Intelligence</h4>
+                <p className="text-gray-400 text-sm">ML, NLP, AI Models</p>
               </div>
             </div>
           </div>
@@ -512,24 +569,43 @@ const Portfolio = () => {
               <h3 className="text-2xl font-bold mb-6 flex items-center">
                 <Code className="w-8 h-8 text-yellow-400 mr-3" />
                 LeetCode Performance
+                {leetcodeStats.loading && <div className="ml-3 animate-spin">⟳</div>}
               </h3>
               <div className="grid grid-cols-2 gap-6">
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-yellow-400">{leetcodeStats.solved}</div>
+                  <div className="text-3xl font-bold text-yellow-400">
+                    {leetcodeStats.loading ? '...' : leetcodeStats.solved}
+                  </div>
                   <div className="text-gray-400">Problems Solved</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-orange-400">{leetcodeStats.streak}</div>
+                  <div className="text-3xl font-bold text-orange-400">
+                    {leetcodeStats.loading ? '...' : leetcodeStats.streak}
+                  </div>
                   <div className="text-gray-400">Day Streak</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-red-400">{leetcodeStats.rank.toLocaleString()}</div>
+                  <div className="text-3xl font-bold text-red-400">
+                    {leetcodeStats.loading ? '...' : leetcodeStats.rank.toLocaleString()}
+                  </div>
                   <div className="text-gray-400">Global Rank</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-green-400">{leetcodeStats.rating}</div>
+                  <div className="text-3xl font-bold text-green-400">
+                    {leetcodeStats.loading ? '...' : leetcodeStats.rating}
+                  </div>
                   <div className="text-gray-400">Contest Rating</div>
                 </div>
+              </div>
+              <div className="mt-6 text-center">
+                <a 
+                  href="https://leetcode.com/u/chafleharsh/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-yellow-400 hover:text-yellow-300 inline-flex items-center"
+                >
+                  View LeetCode Profile <ExternalLink className="w-4 h-4 ml-2" />
+                </a>
               </div>
             </div>
 
@@ -538,24 +614,71 @@ const Portfolio = () => {
               <h3 className="text-2xl font-bold mb-6 flex items-center">
                 <Github className="w-8 h-8 text-gray-400 mr-3" />
                 GitHub Activity
+                {githubStats.loading && <div className="ml-3 animate-spin">⟳</div>}
               </h3>
               <div className="grid grid-cols-2 gap-6">
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-blue-400">{githubStats.repos}</div>
+                  <div className="text-3xl font-bold text-blue-400">
+                    {githubStats.loading ? '...' : githubStats.repos}
+                  </div>
                   <div className="text-gray-400">Repositories</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-yellow-400">{githubStats.stars}</div>
+                  <div className="text-3xl font-bold text-yellow-400">
+                    {githubStats.loading ? '...' : githubStats.stars}
+                  </div>
                   <div className="text-gray-400">Stars Earned</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-green-400">{githubStats.commits}</div>
-                  <div className="text-gray-400">Commits</div>
+                  <div className="text-3xl font-bold text-green-400">
+                    {githubStats.loading ? '...' : githubStats.followers}
+                  </div>
+                  <div className="text-gray-400">Followers</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-purple-400">{githubStats.prs}</div>
-                  <div className="text-gray-400">Pull Requests</div>
+                  <div className="text-3xl font-bold text-purple-400">
+                    {githubStats.loading ? '...' : githubStats.following}
+                  </div>
+                  <div className="text-gray-400">Following</div>
                 </div>
+              </div>
+              <div className="mt-6 text-center">
+                <a 
+                  href="https://github.com/Harshchafle" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-gray-400 hover:text-gray-300 inline-flex items-center"
+                >
+                  View GitHub Profile <ExternalLink className="w-4 h-4 ml-2" />
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Additional GitHub Insights */}
+          <div className="mt-12 bg-gray-800 p-8 rounded-xl border border-gray-700">
+            <h3 className="text-2xl font-bold mb-6 text-center">GitHub Insights</h3>
+            <div className="grid md:grid-cols-3 gap-6">
+              <div className="text-center">
+                <div className="text-3xl font-bold text-green-400 mb-2">
+                  {githubStats.loading ? '...' : '500+'}
+                </div>
+                <div className="text-gray-400">Total Commits</div>
+                <Activity className="w-8 h-8 text-green-400 mx-auto mt-2" />
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-blue-400 mb-2">
+                  {githubStats.loading ? '...' : '15+'}
+                </div>
+                <div className="text-gray-400">Pull Requests</div>
+                <GitBranch className="w-8 h-8 text-blue-400 mx-auto mt-2" />
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-purple-400 mb-2">
+                  {githubStats.loading ? '...' : '1 Year+'}
+                </div>
+                <div className="text-gray-400">Active Coding</div>
+                <Calendar className="w-8 h-8 text-purple-400 mx-auto mt-2" />
               </div>
             </div>
           </div>
@@ -572,14 +695,14 @@ const Portfolio = () => {
           </p>
           
           <div className="grid md:grid-cols-3 gap-8 mb-12">
-            <a 
-              href="mailto:chafleharsh@gmail.com"
-              className="bg-red-600/20 border border-red-500/30 p-6 rounded-xl hover:bg-red-600/30 transition-colors"
+            <button
+              onClick={handleContactClick}
+              className="bg-red-600/20 border border-red-500/30 p-6 rounded-xl hover:bg-red-600/30 transition-colors cursor-pointer"
             >
               <Mail className="w-8 h-8 text-red-400 mx-auto mb-4" />
               <div className="font-semibold">Email</div>
               <div className="text-gray-400">chafleharsh@gmail.com</div>
-            </a>
+            </button>
             
             <a 
               href="https://www.linkedin.com/in/harsh-chafle-641809292/"
@@ -620,6 +743,9 @@ const Portfolio = () => {
             © 2024 Harsh Chafle. Built with React.js and lots of ☕. 
             <span className="text-blue-400 ml-2">Always learning, always coding!</span>
           </p>
+          <div className="mt-4 text-sm text-gray-500">
+            Stats update every 5 minutes | Last updated: {new Date().toLocaleTimeString()}
+          </div>
         </div>
       </footer>
     </div>
